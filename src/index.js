@@ -6,10 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { persistorStore, persistReducer} from "redux-persist";
+import { persistStore, persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage/session";
 import userReducer, { initalState } from './store/reducers/user';
-import persistStore from 'redux-persist/es/persistStore';
 
 
 const persistConfig = {
@@ -19,6 +18,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, userReducer);
 
+// Middleware is set to empty to suppress a warning
 const store = configureStore({ reducer: persistedReducer, preloadedState: initalState, middleware: []});
 
 console.log(store);

@@ -67,4 +67,4 @@ const connector = connect();
 
 type SignInProps = ConnectedProps<typeof connector>;
 
-export default connect()(SignIn);
+export default connector(SignIn);
