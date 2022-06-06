@@ -10,7 +10,7 @@ import { userLogin } from '../../../store/actions/UserActions';
 const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
 
     const [formFields, updateFields] = useState({
-        email: 'username',
+        email: 'email',
         password: 'password'
     })
 
