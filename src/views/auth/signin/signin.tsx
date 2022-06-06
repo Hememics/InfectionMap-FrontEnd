@@ -1,13 +1,20 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { connect, ConnectedProps } from 'react-redux';
 import axios from 'axios';
-import { API_SERVER } from '../../../config/constant';
 
-const SignIn = () => {
+
+import { API_SERVER } from '../../../config/constant';
+import { userLogin } from '../../../store/actions/UserActions';
+
+const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
 
     const [formFields, updateFields] = useState({
         email: 'username',
         password: 'password'
     })
+
+    const navigate = useNavigate()
 
     const onSubmit = () => {
         try {
@@ -17,6 +24,8 @@ const SignIn = () => {
             }).then(response=>{
                 if(response.data.success){
                     console.log(response.data);
+                    dispatch(userLogin(response.data.user.username, response.data.user.email, response.data.token));
+                    navigate("/");
                 }else{
                     console.log('login faild!!!');
                 }
@@ -54,4 +63,8 @@ const SignIn = () => {
     )
 }
 
-export default SignIn;
+const connector = connect();
+
+type SignInProps = ConnectedProps<typeof connector>;
+
+export default connect()(SignIn);

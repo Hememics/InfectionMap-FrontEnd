@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import BASENAME from './config/constant';
 
 import HomePage from './views/homepage';
 import SignIn from './views/auth/signin/signin';
 
 const App = () => {
+
   return (
     <BrowserRouter>
       <Routes>
