@@ -24,7 +24,7 @@ const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
             }).then(response=>{
                 if(response.data.success){
                     console.log(response.data);
-                    dispatch(userLogin(response.data.user.username, response.data.user.email, response.data.token));
+                    dispatch(userLogin(response.data.user._id, response.data.user.username, response.data.user.email, response.data.token));
                     navigate("/");
                 }else{
                     console.log('login faild!!!');

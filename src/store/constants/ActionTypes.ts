@@ -5,6 +5,7 @@ enum ActionType {
 
 type UserAction = {
     type: ActionType,
+    userid: string,
     username: string,
     email: string,
     token: string,

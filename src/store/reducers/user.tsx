@@ -3,6 +3,7 @@
 import ActionType, {UserAction} from '../constants/ActionTypes';
 
 type UserState = {
+    userid: string,
     username: string,
     email: string,
     token: string,
@@ -10,6 +11,7 @@ type UserState = {
 }
 
 const initalState: UserState = {
+    userid: '',
     username: '',
     email: '',
     token: '',
@@ -21,6 +23,7 @@ const user = (state : UserState, action: UserAction) => {
         case ActionType.Login:
             {
                 const newState = {...state};
+                newState.userid = action.userid;
                 newState.email = action.email;
                 newState.username = action.username;
                 newState.token = action.token;
@@ -30,6 +33,7 @@ const user = (state : UserState, action: UserAction) => {
         case ActionType.Logout:
             {
                 const newState = {...state};
+                newState.userid = action.userid;
                 newState.email = '';
                 newState.username = '';
                 newState.token = '';

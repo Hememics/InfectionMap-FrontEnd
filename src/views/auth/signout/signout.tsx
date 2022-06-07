@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { userLogout } from '../../../store/actions/UserActions';
 
 
-const SignOut: React.FC<SignOutProps> = ({dispatch}) =>{
+const SignOut = () =>{
+    const dispatch = useDispatch();
 
     const signoutFunc = () => {
         dispatch(userLogout());
@@ -15,10 +16,4 @@ const SignOut: React.FC<SignOutProps> = ({dispatch}) =>{
     return <div>{signoutFunc()}</div>;
 }
 
-
-
-const connector = connect();
-
-type SignOutProps = ConnectedProps<typeof connector>;
-
-export default connector(SignOut);
+export default SignOut;

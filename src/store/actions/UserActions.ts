@@ -1,7 +1,8 @@
 import ActionTypes, { UserAction } from '../constants/ActionTypes';
 
-const userLogin = (username: string, email: string, token: string): UserAction => ({
+const userLogin = (userid: string, username: string, email: string, token: string): UserAction => ({
     type: ActionTypes.Login,
+    userid,
     username,
     email,
     token,
@@ -9,6 +10,7 @@ const userLogin = (username: string, email: string, token: string): UserAction =
 
 const userLogout = (): UserAction => ({
     type: ActionTypes.Logout,
+    userid: '',
     username: '',
     email: '',
     token: '',
