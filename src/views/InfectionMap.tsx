@@ -44,6 +44,27 @@ const InfectionMap = () => {
             updateMap(newTests);
         });
 
+        // Setup live listening for new tests
+        const sse = new EventSource('http://localhost:5000/listen')
+
+        sse.addEventListener('newtest', event => {
+            console.log('new test');
+            
+            console.log(event);
+
+            const testID = Number(event.data);
+            postInstance.post("gettest", {
+                testID: testID,
+            }).then((response)=>{
+                
+            });
+
+        });
+
+        sse.onerror = (e) =>{
+            console.log(e);
+        }
+
     }, [userToken]);
 
     const genMarkersJSX = () => {
