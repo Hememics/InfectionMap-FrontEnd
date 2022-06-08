@@ -13,6 +13,7 @@ const HomePage = () => {
                     <p>Welcome: {userState.username}</p> 
                     <p><Link to="/logout">Logout</Link></p>
                     <p><Link to="/mytests">My Tests</Link></p>
+                    <p><Link to="/map">Infection Map</Link></p>
                     </div>);
         }else{
             return(<div><p><Link to="/login">Login</Link></p>
