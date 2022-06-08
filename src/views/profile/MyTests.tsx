@@ -6,14 +6,9 @@ import AuthGuard from '../../components/auth/AuthGuard';
 import { UserState } from '../../store/reducers/user';
 
 import { API_SERVER } from '../../config/constant';
+import { Test } from '../../config/constant';
 
 
-type Test = {
-    test_id: number;
-    test_date: string;
-    test_type: string;
-    test_result: string;
-}
 
 const MyTests = () => {
 
@@ -57,7 +52,8 @@ const MyTests = () => {
             "test_date": "2022-06-07T16:56:19.936Z",
             "test_type": testType,
             "test_result": testResult,
-            "test_location": "on the cloud",
+            "test_location_lat": (Math.random() * (84 + 84)) - 84,
+            "test_location_lon": Math.random() * 400,
         }).then(response=>{
             
             console.log(response);
@@ -70,12 +66,14 @@ const MyTests = () => {
             const testsJSX: JSX.Element[] = [];
 
             testList.forEach((test:Test)=>{
+                console.log("id:");
+                console.log(test._id);
                 testsJSX.push(
-                    <p>{test.test_date} | {test.test_type}:{test.test_result}</p>
+                    <p key={test._id}>{test.test_date} | {test.test_type}:{test.test_result}</p>
                 )
             })
 
-            return testsJSX;
+            return <div>{testsJSX}</div>;
         }
 
         return (
@@ -93,9 +91,9 @@ const MyTests = () => {
                 <p><button type="button" onClick={()=>{
                     addTest("testtest", "testresult");
                 }}>Create Test Test</button></p>
-                <p>
+                <div>
                     <TestList />
-                </p>
+                </div>
             </div>
         </AuthGuard>
     );

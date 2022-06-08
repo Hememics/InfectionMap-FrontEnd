@@ -1,10 +1,14 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import { useSelector } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import axios from 'axios';
 
-import { LatLngTuple } from "leaflet";
+
 
 import AuthGuard from '../components/auth/AuthGuard';
 import { UserState } from '../store/reducers/user';
+import { API_SERVER } from '../config/constant';
+import { Test } from '../config/constant';
 
 import "../map.css";
 
@@ -14,10 +18,52 @@ import "../map.css";
 
 const InfectionMap = () => {
 
-    //const userState:UserState = useSelector((state:UserState) => state);
+    const userToken:string = useSelector((state:UserState) => state.token);
 
-    const position:LatLngTuple = [51.505, -0.09];
-    const position2:LatLngTuple = [61.505, -10.09];
+    const initalMapState: Test[] = [];
+
+    const [mapState, updateMap] = useState(initalMapState);
+
+    useEffect(()=>{
+        const postInstance = axios.create({
+            baseURL: API_SERVER + 'profile/',
+            timeout: 1000,
+            headers: {'authorization': userToken},
+        })
+
+        postInstance.get("getmytests").then( response=>{
+            console.log(response);
+            const newTests:Test[] = [];
+
+            response.data.tests.forEach( (element:Test) => {
+                newTests.push(element);
+            });
+
+            
+            console.log(newTests);
+            updateMap(newTests);
+        });
+
+    }, [userToken]);
+
+    const genMarkersJSX = () => {
+        const markerList:JSX.Element[] = [];
+        mapState.forEach(test=>{
+
+            const tl = test.test_location;
+
+            if (tl[0] !== undefined && tl[1] !== undefined && tl[0] !== null && tl[1] !== null){
+                markerList.push(
+                <Marker key={test._id} position={[tl[0],tl[1]]}>
+                    <Popup>
+                        Test Type: {test.test_type} <br /> Result: {test.test_result}
+                    </Popup>
+                </Marker>
+                );               
+            }
+        });
+        return markerList;
+    }
 
     return (
         <AuthGuard>
@@ -32,16 +78,7 @@ const InfectionMap = () => {
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
         
-            <Marker position={position}>
-                <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-            </Marker>
-            <Marker position={position2}>
-                <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-            </Marker>
+           {genMarkersJSX()}
 
             </MapContainer>
         </AuthGuard>
