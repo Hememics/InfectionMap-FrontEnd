@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import { useSelector } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import axios from 'axios';
@@ -13,25 +13,29 @@ import { Test } from '../config/constant';
 import "../map.css";
 
 
+ // Setup live listening for new tests
+const sse = new EventSource('http://localhost:5000/listen');
+
 // Code borrowed from:
 //https://codesandbox.io/s/9binx?file=/src/App.js:213-758
 
 const InfectionMap = () => {
 
     const userToken:string = useSelector((state:UserState) => state.token);
+    const userID:string = useSelector((state:UserState) => state.userid);
 
     const initalMapState: Test[] = [];
 
-    const [mapState, updateMap] = useState(initalMapState);
+    const [mapState, updateMap] = useState(initalMapState);    
 
     useEffect(()=>{
         const postInstance = axios.create({
             baseURL: API_SERVER + 'profile/',
             timeout: 1000,
             headers: {'authorization': userToken},
-        })
+        });
 
-        postInstance.get("getmytests").then( response=>{
+        postInstance.get("gettests").then( response=>{
             console.log(response);
             const newTests:Test[] = [];
 
@@ -43,29 +47,37 @@ const InfectionMap = () => {
             console.log(newTests);
             updateMap(newTests);
         });
+    }, [userToken, userID]);
 
-        // Setup live listening for new tests
-        const sse = new EventSource('http://localhost:5000/listen')
-
-        sse.addEventListener('newtest', event => {
-            console.log('new test');
-            
-            console.log(event);
-
-            const testID = Number(event.data);
-            postInstance.post("gettest", {
-                testID: testID,
-            }).then((response)=>{
-                
-            });
-
+    sse.onmessage = (event => {
+        console.log(event);
+        const postInstance = axios.create({
+            baseURL: API_SERVER + 'profile/',
+            timeout: 1000,
+            headers: {'authorization': userToken},
         });
+        console.log('new test');
+        
+        console.log(event);
 
-        sse.onerror = (e) =>{
-            console.log(e);
-        }
+        const testID = Number(event.data);
+        console.log(testID);
+        postInstance.post("gettest", {
+            userID: userID,
+            testID: testID,
+        }).then((response)=>{
+            console.log(response.data);
+            const newMapState = Object.assign([], mapState);
+            newMapState.push(response.data.test);
+            updateMap(newMapState);
+        });
+    });
 
-    }, [userToken]);
+    sse.onerror = (e) =>{
+        console.log(e);
+       
+    }
+
 
     const genMarkersJSX = () => {
         const markerList:JSX.Element[] = [];
