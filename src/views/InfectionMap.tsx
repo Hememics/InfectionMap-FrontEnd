@@ -13,8 +13,48 @@ import { Test } from '../config/constant';
 import "../map.css";
 
 
+type NewTest = {
+    testID: number;
+    rendered: boolean;
+}
+
+type NewTests = {
+    newTests:NewTest[];
+    updateMapFunc: () => void;
+}
+
  // Setup live listening for new tests
 const sse = new EventSource('http://localhost:5000/listen');
+
+const newTests:NewTests = {newTests:[], updateMapFunc:()=>{}};
+
+sse.addEventListener('newtest', (event)=>{
+    console.log(event);
+    const testID = Number(event.data);
+
+    const updatedTests:NewTest[] = [];
+
+    newTests.newTests.forEach((t)=>{
+        if(!t.rendered){
+            updatedTests.push(t);
+        }
+    });
+
+    updatedTests.push({
+        testID: testID,
+        rendered: false,
+    });
+
+    newTests.newTests = updatedTests;
+
+    newTests.updateMapFunc();
+
+});
+
+sse.onerror = (e) =>{
+    console.log(e);
+   
+}
 
 // Code borrowed from:
 //https://codesandbox.io/s/9binx?file=/src/App.js:213-758
@@ -26,7 +66,7 @@ const InfectionMap = () => {
 
     const initalMapState: Test[] = [];
 
-    const [mapState, updateMap] = useState(initalMapState);    
+    const [mapState, updateMap] = useState(initalMapState);
 
     useEffect(()=>{
         const postInstance = axios.create({
@@ -47,36 +87,39 @@ const InfectionMap = () => {
             console.log(newTests);
             updateMap(newTests);
         });
-    }, [userToken, userID]);
+    }, [userToken]);
 
-    sse.onmessage = (event => {
-        console.log(event);
+    newTests.updateMapFunc = ()=>{
         const postInstance = axios.create({
             baseURL: API_SERVER + 'profile/',
             timeout: 1000,
             headers: {'authorization': userToken},
         });
-        console.log('new test');
+
+
+        // Loop through all the new tests
+        // for each new test use the ID to request
+        // the rest of the test info using the user token
+        // and use the reponse to update the map
+        newTests.newTests.forEach((t)=>{
+            if(!t.rendered){
+                t.rendered = true;
+                postInstance.post("gettest",{
+                    userID: userID,
+                    testID: t.testID,
+                }).then( response=>{
+                    console.log(response);
+                    const newTest:Test = response.data.test;
         
-        console.log(event);
-
-        const testID = Number(event.data);
-        console.log(testID);
-        postInstance.post("gettest", {
-            userID: userID,
-            testID: testID,
-        }).then((response)=>{
-            console.log(response.data);
-            const newMapState = Object.assign([], mapState);
-            newMapState.push(response.data.test);
-            updateMap(newMapState);
+                    const newTests:Test[] = [...mapState, newTest];
+                    
+                    console.log(newTest);
+                    updateMap(newTests);
+                });
+            }
         });
-    });
-
-    sse.onerror = (e) =>{
-        console.log(e);
        
-    }
+    };   
 
 
     const genMarkersJSX = () => {
