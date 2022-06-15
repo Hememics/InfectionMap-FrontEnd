@@ -13,7 +13,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<HomePage />} />
+        <Route index element={<InfectionMap />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/logout" element={<SignOut />} />
         <Route path="/register" element={<SignUp />} />
