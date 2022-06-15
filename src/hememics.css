@@ -1,0 +1,166 @@
+
+.center {
+  margin: auto;
+  width: 300px;
+  text-align: center;
+}
+
+.topBar {
+  margin: auto;
+  width: 600px;
+  text-align: center;
+}
+
+button {
+  background-color: #9f9f9f;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  appearance: none;
+  font-size: 25px;
+  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
+  transition: all ease-in 0.1s;
+  cursor: pointer;
+  opacity: 1;
+  margin: 10px;
+}
+
+.buttonSmall {
+  background-color: #9f9f9f;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  appearance: none;
+  font-size: 15px;
+  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
+  transition: all ease-in 0.1s;
+  cursor: pointer;
+  opacity: 1;
+  margin: 10px;
+}
+
+body{
+  background-color: #f2f2f2;
+}
+
+button:hover {
+  background-color: #f0525f;
+  color: white;
+}
+
+button:disabled {
+  background-color: #d8d8d8;
+  color: black;
+  text-decoration: line-through;
+}
+
+.listButton {
+  background-color: #d8d8d8;
+  color: black;
+  width: 300px;
+  padding: 10px 20px;
+  border-radius: 0px;
+  border: none;
+  appearance: none;
+  font-size: 20px;
+  cursor: crosshair;
+  opacity: 1;
+  margin: 10px;
+}
+
+.listButton:hover {
+  background-color: #f0525f;
+  color: white;
+}
+
+.listEdit {
+  background-color: #fcf8f8;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 0px;
+  border: none;
+  width: 0px;
+  appearance: none;
+  font-size: 20px;
+  cursor: crosshair;
+  opacity: 1;
+  margin: 10px;
+  flex-grow: 1;
+}
+
+.listEditActive {
+  background-color: #fcf8f8;
+  color: black;
+  margin: 0px;
+}
+
+
+.editButton {
+  background-color: white;
+  cursor: pointer;
+}
+
+.editButton:hover{
+  background-color: blue;
+}
+
+.label{
+  background-color: #d8d8d8;
+  color: black;
+  margin: 0px;
+  font-size: 20px;
+  cursor: default;
+}
+
+.label:hover{
+  background-color: #d8d8d8;
+  color:black;
+}
+
+.chips {
+  background-color: white;
+}
+
+.reagents {
+background-color: white;
+}
+
+.editor {
+  background-color: white;
+}
+
+.editorName {
+  background-color: #fcf8f8;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 0px;
+  border: none;
+  appearance: none;
+  font-size: 20px;
+  cursor: crosshair;
+  opacity: 1;
+  margin: 10px;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.error {
+  background-color: #ffffff;
+  margin: 10px;
+  font-size: 20px;
+  cursor: default;
+  color:red;
+}
+
+.error:hover{
+  background-color: #ffffff;
+  color:red;
+}

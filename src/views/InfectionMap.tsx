@@ -75,6 +75,8 @@ const InfectionMap = () => {
             headers: {'authorization': userToken},
         });
 
+        console.log("use effect is called")
+
         postInstance.get("gettests").then( response=>{
             console.log(response);
             const newTests:Test[] = [];
