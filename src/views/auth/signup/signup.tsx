@@ -49,6 +49,9 @@ const SignUp = () => {
                     navigate("/");
                 }else{
                     console.log('signup faild!!!');
+                    console.log(response);
+                    console.log('~~~~~~~~~~~~~~~~');
+                    catchError(response);
                 }
             }).catch(catchError);
 

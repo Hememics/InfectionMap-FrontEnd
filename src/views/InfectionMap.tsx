@@ -24,7 +24,7 @@ type NewTests = {
 }
 
  // Setup live listening for new tests
-const sse = new EventSource('http://localhost:5000/listen');
+const sse = new EventSource('http://44.204.55.74:5000/listen');
 
 const newTests:NewTests = {newTests:[], updateMapFunc:()=>{}};
 

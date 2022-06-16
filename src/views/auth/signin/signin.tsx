@@ -26,7 +26,7 @@ const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
         newFields.error = error.response.data.msg;
 
         if (newFields.error.search('too') > 0){
-            newFields.error = 'One of the fields you entered are invalid';
+            newFields.error = 'One or more of the fields you entered are invalid';
         }
 
         //console.log(error);
@@ -50,6 +50,9 @@ const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
                     navigate("/");
                 }else{
                     console.log('login faild!!!');
+                    console.log(response);
+                    console.log('~~~~~~~~~~~~~~~~');
+                    catchError(response);
                 }
             }).catch(catchError);
         } catch (error) {
