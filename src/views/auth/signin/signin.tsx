@@ -37,8 +37,6 @@ const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
     const onSubmit = () => {
         try {
 
-            console.log(API_SERVER + 'users/login');
-
             const postPromise = axios.post(API_SERVER + 'users/login', {
                 password:   formFields.password,
                 email: formFields.email

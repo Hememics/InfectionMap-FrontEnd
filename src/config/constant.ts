@@ -1,7 +1,7 @@
 const BASENAME = '';
 const BASE_URL = '/app/dashboard/default';
 const BASE_TITLE = ' | React Datta Able ';
-const API_SERVER = 'http://44.204.55.74:5000/api/'
+const API_SERVER = 'http://flask-env.eba-djpmgmus.us-east-2.elasticbeanstalk.com/api/'
 
 type Test = {
     _id: number;
