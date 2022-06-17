@@ -24,7 +24,7 @@ type NewTests = {
 }
 
  // Setup live listening for new tests
-const sse = new EventSource('http://flask-env.eba-djpmgmus.us-east-2.elasticbeanstalk.com/listen');
+const sse = new EventSource('http://flask-env.eba-2cgkpqhd.us-east-2.elasticbeanstalk.com/listen');
 
 const newTests:NewTests = {newTests:[], updateMapFunc:()=>{}};
 
