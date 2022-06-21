@@ -3,6 +3,7 @@
   margin: auto;
   width: 300px;
   text-align: center;
+  scale: 150%;
 }
 
 .topBar {
@@ -163,4 +164,17 @@ background-color: white;
 .error:hover{
   background-color: #ffffff;
   color:red;
+}
+
+
+#video {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+}
+
+.logo {
+  margin: 50px;
+  height: 120px;
+  width: auto;
 }

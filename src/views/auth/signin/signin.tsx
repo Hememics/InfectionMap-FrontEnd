@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import axios from 'axios';
 
-
+import NavBar from '../../NavBar';
 import { API_SERVER } from '../../../config/constant';
 import { userLogin } from '../../../store/actions/UserActions';
 
 import '../../../hememics.css';
-import { latLngBounds } from 'leaflet';
 
 const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
 
@@ -72,38 +71,42 @@ const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
 
 
     return (
-        <div className='center'>
-            <p>
-                <button className='label'><p>Email</p>
+        <div>
+            {NavBar()}
+        
+            <div className='center'>
+                <p>
+                    <button className='label'><p>Email</p>
 
-                    <input type="text" onChange={(event)=> {
-                        updateFields({
-                            email: event.target.value,
-                            password: formFields.password,
-                            error: '',
-                        });
-                    }} value={formFields.email} />
+                        <input type="text" onChange={(event)=> {
+                            updateFields({
+                                email: event.target.value,
+                                password: formFields.password,
+                                error: '',
+                            });
+                        }} value={formFields.email} />
+                    
                 
-            
-                <p>Password</p>
-                    <input type="password" onChange={(event)=> {
-                        updateFields({
-                            email: formFields.email,
-                            password: event.target.value,
-                            error: '',
-                        });
-                    }} value={formFields.password}/>
-                </button>
-            </p>
-            <div>
-            {showError(formFields.error)}
+                    <p>Password</p>
+                        <input type="password" onChange={(event)=> {
+                            updateFields({
+                                email: formFields.email,
+                                password: event.target.value,
+                                error: '',
+                            });
+                        }} value={formFields.password}/>
+                    </button>
+                </p>
+                <div>
+                {showError(formFields.error)}
+                </div>
+                <p>
+                    <button type="button" onClick={onSubmit}>Login</button>
+                </p>
+                <p>
+                    <button type="button" onClick={()=>{navigate("/register")}}>Register</button>
+                </p>
             </div>
-            <p>
-                <button type="button" onClick={onSubmit}>Login</button>
-            </p>
-            <p>
-                <button type="button" onClick={()=>{navigate("/register")}}>Register</button>
-            </p>
         </div>
     )
 }

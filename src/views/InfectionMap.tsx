@@ -5,7 +5,7 @@ import * as L from "leaflet";
 import axios from 'axios';
 
 
-
+import NavBar from "./NavBar";
 import AuthGuard from '../components/auth/AuthGuard';
 import { UserState } from '../store/reducers/user';
 import { API_SERVER } from '../config/constant';
@@ -162,7 +162,7 @@ const InfectionMap = () => {
     }
 
     return (
-        <AuthGuard>
+        <AuthGuard>          
             <MapContainer
             className="markercluster-map"
             center={[51.0, 19.0]}
@@ -174,7 +174,7 @@ const InfectionMap = () => {
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
         
-           {genMarkersJSX()}
+                {genMarkersJSX()}
 
             </MapContainer>
         </AuthGuard>

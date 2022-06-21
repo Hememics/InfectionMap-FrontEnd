@@ -4,6 +4,7 @@ import axios from 'axios';
 
 
 import { API_SERVER } from '../../../config/constant';
+import NavBar from '../../NavBar';
 
 import '../../../hememics.css';
 
@@ -70,6 +71,9 @@ const SignUp = () => {
     }
 
     return (
+        <div>
+            <NavBar />
+        
         <div className="center">
             <button className='label'>
              <p>Username</p>
@@ -112,6 +116,7 @@ const SignUp = () => {
             <p>
                 <button type="button" className="buttonSmall" onClick={()=>{navigate("/login")}}>Already have an account? Login</button>
             </p>
+        </div>
         </div>
     )
 }
