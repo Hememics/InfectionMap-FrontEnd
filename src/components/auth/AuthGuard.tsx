@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { UserState } from '../../store/reducers/user';
 import axios from 'axios';
 
 import { API_SERVER } from '../../config/constant';
+import { userLogout } from '../../store/actions/UserActions';
 
 type AuthProps = {
     children: JSX.Element
@@ -23,23 +24,32 @@ type Gaurdstate = {
     error:string;
 }
 
-const BadToken = (errorMsg:string) => {
-    return (<div>
-        <p>User Token is Invalid!</p>
-        <p>{errorMsg}</p>
-        <Link to="/login">Login</Link>
-    </div>)
-
-}
-
 
 const AuthGuard = ({children}:AuthProps) => {
     const isLoggedIn = useSelector((userState: UserState) => userState.isLoggedIn);
     const userToken = useSelector((userState: UserState) => userState.token);
 
-    const [guardState, updateGaurdState] = useState({state:GaurdStateEnum.Checking, error:''});
+    const updateUser = useDispatch();
+
+    const initalGaurdstate: Gaurdstate = {
+        state:GaurdStateEnum.Checking, error:'',
+    };
+
+    const [guardState, updateGaurdState] = useState(initalGaurdstate);
 
     
+
+    const BadToken = (errorMsg:string) => {
+
+        updateUser(userLogout());
+
+        return (<div>
+            <p>User Token is Invalid!</p>
+            <p>{errorMsg}</p>
+            <Link to="/login">Login</Link>
+        </div>)
+    
+    }
 
     switch (guardState.state){
         case GaurdStateEnum.Checking:{

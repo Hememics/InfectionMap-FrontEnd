@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useCallback} from "react";
 import { useSelector } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import * as L from "leaflet";
 import axios from 'axios';
 
 
@@ -11,7 +12,6 @@ import { API_SERVER } from '../config/constant';
 import { Test } from '../config/constant';
 
 import "../map.css";
-
 
 type NewTest = {
     testID: number;
@@ -123,6 +123,24 @@ const InfectionMap = () => {
        
     };   
 
+    //https://github.com/pointhi/leaflet-color-markers
+    const greenIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    const redIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
 
     const genMarkersJSX = () => {
         const markerList:JSX.Element[] = [];
@@ -132,7 +150,7 @@ const InfectionMap = () => {
 
             if (tl[0] !== undefined && tl[1] !== undefined && tl[0] !== null && tl[1] !== null){
                 markerList.push(
-                <Marker key={test._id} position={[tl[0],tl[1]]}>
+                <Marker key={test._id} position={[tl[0],tl[1]]} icon={test.test_result === 'negative'? greenIcon : redIcon}>
                     <Popup>
                         Test Type: {test.test_type} <br /> Result: {test.test_result}
                     </Popup>
