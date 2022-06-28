@@ -12,7 +12,7 @@ import '../../../hememics.css';
 const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
 
     const [formFields, updateFields] = useState({
-        email: 'email',
+        email: '',
         password: '',
         error: '',
     })
@@ -78,7 +78,7 @@ const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
                 <p>
                     <button className='label'><p>Email</p>
 
-                        <input type="text" onChange={(event)=> {
+                        <input type="text" placeholder='Email' onChange={(event)=> {
                             updateFields({
                                 email: event.target.value,
                                 password: formFields.password,
@@ -88,7 +88,7 @@ const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
                     
                 
                     <p>Password</p>
-                        <input type="password" onChange={(event)=> {
+                        <input type="password" placeholder='Password' onChange={(event)=> {
                             updateFields({
                                 email: formFields.email,
                                 password: event.target.value,

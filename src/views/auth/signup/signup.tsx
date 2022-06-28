@@ -11,8 +11,8 @@ import '../../../hememics.css';
 const SignUp = () => {
 
     const [formFields, updateFields] = useState({
-        username: 'username',
-        email: 'email',
+        username: '',
+        email: '',
         password: '',
         error: '',
     })
@@ -77,7 +77,7 @@ const SignUp = () => {
         <div className="center">
             <button className='label'>
              <p>Username</p>
-                    <input type="text" onChange={(event)=> {
+                    <input type="text" placeholder='Username' onChange={(event)=> {
                         updateFields({
                             username: event.target.value,
                             email: formFields.email,
@@ -87,7 +87,7 @@ const SignUp = () => {
                     }} value={formFields.username} />
                 
             <p>Email</p>
-                    <input type="text" onChange={(event)=> {
+                    <input type="text" placeholder='Email' onChange={(event)=> {
                         updateFields({
                             username: formFields.username,
                             email: event.target.value,
@@ -97,7 +97,7 @@ const SignUp = () => {
                     }} value={formFields.email} />
            
               <p> Password</p>
-                    <input type="password" onChange={(event)=> {
+                    <input type="password" placeholder='Password' onChange={(event)=> {
                         updateFields({
                             username: formFields.username,
                             email: formFields.email,

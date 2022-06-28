@@ -9,7 +9,6 @@ return (  <div>
             
             <div>
                 <video autoPlay loop muted id="video" >
-                
                     <source src={videoBg} type='video/mp4' />
                 </video>
                 <a href="https://hememics.com" >

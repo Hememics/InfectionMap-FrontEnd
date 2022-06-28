@@ -162,7 +162,9 @@ background-color: white;
 #video {
   position: fixed;
   z-index: -1;
-  width: 100%;
+  width: cover;
+  height: auto;
+  filter:brightness(90%);
 }
 
 .logo {
