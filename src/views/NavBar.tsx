@@ -11,11 +11,6 @@ return (  <div>
                 <video autoPlay loop muted id="video" >
                     <source src={videoBg} type='video/mp4' />
                 </video>
-                <a href="https://hememics.com" >
-                    <img src={logo} alt="hememics logo" className="logo"/>
-                </a>
-                
-                
             </div>
         </div>
 );

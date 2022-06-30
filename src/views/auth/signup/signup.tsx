@@ -8,6 +8,8 @@ import NavBar from '../../NavBar';
 
 import '../../../hememics.css';
 
+const logo = require('../../../assets/HeMemics_Logo.png');
+
 const SignUp = () => {
 
     const [formFields, updateFields] = useState({
@@ -73,11 +75,14 @@ const SignUp = () => {
     return (
         <div>
             <NavBar />
-        
-        <div className="center">
-            <button className='label'>
-             <p>Username</p>
-                    <input type="text" placeholder='Username' onChange={(event)=> {
+            <div className='center-vert'>
+            <div className='center'>
+                    <div className='label' id='label-register'>
+                        <a href="https://hememics.com" >
+                            <img src={logo} alt="hememics logo" className="logo"/>
+                        </a>
+             <h3 id='header'>Username</h3>
+                    <input type="text" className='field' onChange={(event)=> {
                         updateFields({
                             username: event.target.value,
                             email: formFields.email,
@@ -86,8 +91,8 @@ const SignUp = () => {
                         });
                     }} value={formFields.username} />
                 
-            <p>Email</p>
-                    <input type="text" placeholder='Email' onChange={(event)=> {
+            <h3 id='header'>Email</h3>
+                    <input type="text" className='field' onChange={(event)=> {
                         updateFields({
                             username: formFields.username,
                             email: event.target.value,
@@ -96,8 +101,8 @@ const SignUp = () => {
                         });
                     }} value={formFields.email} />
            
-              <p> Password</p>
-                    <input type="password" placeholder='Password' onChange={(event)=> {
+              <h3 id='header'> Password</h3>
+                    <input type="password" className='field' onChange={(event)=> {
                         updateFields({
                             username: formFields.username,
                             email: formFields.email,
@@ -105,17 +110,17 @@ const SignUp = () => {
                             error: '',
                         });
                     }} value={formFields.password}/>                    
-            
-            </button>
+
+                <p id='register'>Already have an account? Login <a href='#' onClick={()=>{navigate("/login")}} id='link-color'> here</a></p> 
+
+                
+                <button type="button" className='login-btns' onClick={onSubmit}><h3>Register</h3></button>
+                <p></p>
+            </div>
+            </div>
             <div>
                 {showError(formFields.error)}
             </div>
-            <p>
-                <button type="button" onClick={onSubmit}>Register</button>
-            </p>
-            <p>
-                <button type="button" className="buttonSmall" onClick={()=>{navigate("/login")}}>Already have an account? Login</button>
-            </p>
         </div>
         </div>
     )

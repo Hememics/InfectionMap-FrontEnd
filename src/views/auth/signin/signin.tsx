@@ -9,6 +9,8 @@ import { userLogin } from '../../../store/actions/UserActions';
 
 import '../../../hememics.css';
 
+const logo = require('../../../assets/HeMemics_Logo.png');
+
 const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
 
     const [formFields, updateFields] = useState({
@@ -72,42 +74,43 @@ const SignIn: React.FC<SignInProps> = ({ dispatch }) => {
 
     return (
         <div>
-            {NavBar()}
-        
-            <div className='center'>
-                <p>
-                    <button className='label'><p>Email</p>
 
-                        <input type="text" placeholder='Email' onChange={(event)=> {
+            {NavBar()}
+
+                <div className='center-label'>
+                    <div className='label'>
+                        <a href="https://hememics.com" >
+                            <img src={logo} alt="hememics logo" className="logo"/>
+                        </a>
+                        <h3 id='header'>Email</h3>
+                        <input type="text" className='field' onChange={(event)=> {
                             updateFields({
                                 email: event.target.value,
                                 password: formFields.password,
                                 error: '',
                             });
                         }} value={formFields.email} />
-                    
-                
-                    <p>Password</p>
-                        <input type="password" placeholder='Password' onChange={(event)=> {
+            
+                        <h3 id='header'>Password</h3>
+                        <input type="password" className='field' onChange={(event)=> {
                             updateFields({
                                 email: formFields.email,
                                 password: event.target.value,
                                 error: '',
                             });
                         }} value={formFields.password}/>
-                    </button>
-                </p>
-                <div>
-                {showError(formFields.error)}
+
+                        <p id='register'>Don't have an account? Create one <a href='#' onClick={()=>{navigate("/register")}} id='link-color'> here</a></p> 
+
+                        <div>
+                            {showError(formFields.error)}
+                        </div>
+                        
+                        <button type="button" className='login-btns' onClick={onSubmit}><h3>Login</h3></button>
+                    
+                    </div>
                 </div>
-                <p>
-                    <button type="button" onClick={onSubmit}>Login</button>
-                </p>
-                <p>
-                    <button type="button" onClick={()=>{navigate("/register")}}>Register</button>
-                </p>
             </div>
-        </div>
     )
 }
 
@@ -116,3 +119,6 @@ const connector = connect();
 type SignInProps = ConnectedProps<typeof connector>;
 
 export default connector(SignIn);
+
+// register button (fix)
+//<button type="button" onClick={()=>{navigate("/register")}}>Register</button>
