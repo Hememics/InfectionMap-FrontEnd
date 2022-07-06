@@ -152,7 +152,7 @@ const InfectionMap = () => {
                 markerList.push(
                 <Marker key={test._id} position={[tl[0],tl[1]]} icon={test.test_result === 'negative'? greenIcon : redIcon}>
                     <Popup>
-                        Test Type: {test.test_type} <br /> Result: {test.test_result}
+                        Test Type: {test.test_type} <br /> Result: {test.test_result} Date: {test.test_date}
                     </Popup>
                 </Marker>
                 );               
