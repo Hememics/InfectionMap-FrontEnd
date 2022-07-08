@@ -24,37 +24,37 @@ type NewTests = {
 }
 
  // Setup live listening for new tests
-const sse = new EventSource('http://flask-env.eba-2cgkpqhd.us-east-2.elasticbeanstalk.com/listen');
+// const sse = new EventSource('http://flask-env.eba-2cgkpqhd.us-east-2.elasticbeanstalk.com/listen');
 
-const newTests:NewTests = {newTests:[], updateMapFunc:()=>{}};
+// const newTests:NewTests = {newTests:[], updateMapFunc:()=>{}};
 
-sse.addEventListener('newtest', (event)=>{
-    console.log(event);
-    const testID = Number(event.data);
+// sse.addEventListener('newtest', (event)=>{
+//     console.log(event);
+//     const testID = Number(event.data);
 
-    const updatedTests:NewTest[] = [];
+//     const updatedTests:NewTest[] = [];
 
-    newTests.newTests.forEach((t)=>{
-        if(!t.rendered){
-            updatedTests.push(t);
-        }
-    });
+//     newTests.newTests.forEach((t)=>{
+//         if(!t.rendered){
+//             updatedTests.push(t);
+//         }
+//     });
 
-    updatedTests.push({
-        testID: testID,
-        rendered: false,
-    });
+//     updatedTests.push({
+//         testID: testID,
+//         rendered: false,
+//     });
 
-    newTests.newTests = updatedTests;
+//     newTests.newTests = updatedTests;
 
-    newTests.updateMapFunc();
+//     newTests.updateMapFunc();
 
-});
+// });
 
-sse.onerror = (e) =>{
-    console.log(e);
+// sse.onerror = (e) =>{
+//     console.log(e);
    
-}
+// };
 
 // Code borrowed from:
 //https://codesandbox.io/s/9binx?file=/src/App.js:213-758
@@ -91,37 +91,37 @@ const InfectionMap = () => {
         });
     }, [userToken]);
 
-    newTests.updateMapFunc = ()=>{
-        const postInstance = axios.create({
-            baseURL: API_SERVER + 'profile/',
-            timeout: 1000,
-            headers: {'authorization': userToken},
-        });
+    // newTests.updateMapFunc = ()=>{
+    //     const postInstance = axios.create({
+    //         baseURL: API_SERVER + 'profile/',
+    //         timeout: 1000,
+    //         headers: {'authorization': userToken},
+    //     });
 
 
-        // Loop through all the new tests
-        // for each new test use the ID to request
-        // the rest of the test info using the user token
-        // and use the reponse to update the map
-        newTests.newTests.forEach((t)=>{
-            if(!t.rendered){
-                t.rendered = true;
-                postInstance.post("gettest",{
-                    userID: userID,
-                    testID: t.testID,
-                }).then( response=>{
-                    console.log(response);
-                    const newTest:Test = response.data.test;
+    //     // Loop through all the new tests
+    //     // for each new test use the ID to request
+    //     // the rest of the test info using the user token
+    //     // and use the reponse to update the map
+    //     newTests.newTests.forEach((t)=>{
+    //         if(!t.rendered){
+    //             t.rendered = true;
+    //             postInstance.post("gettest",{
+    //                 userID: userID,
+    //                 testID: t.testID,
+    //             }).then( response=>{
+    //                 console.log(response);
+    //                 const newTest:Test = response.data.test;
         
-                    const newTests:Test[] = [...mapState, newTest];
+    //                 const newTests:Test[] = [...mapState, newTest];
                     
-                    console.log(newTest);
-                    updateMap(newTests);
-                });
-            }
-        });
+    //                 console.log(newTest);
+    //                 updateMap(newTests);
+    //             });
+    //         }
+    //     });
        
-    };   
+    // };   
 
     //https://github.com/pointhi/leaflet-color-markers
     const greenIcon = new L.Icon({
